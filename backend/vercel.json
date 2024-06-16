@@ -1,32 +1,38 @@
 {
   "version": 2,
   "builds": [
-    { "src": "server.js", "use": "@vercel/node" }
+    {
+      "src": "server.js",
+      "use": "@vercel/node"
+    }
   ],
   "routes": [
     {
       "src": "/api/food(.*)",
-      "dest": "server.js"
+      "dest": "/api/food$1"
     },
     {
       "src": "/images/(.*)",
-      "dest": "server.js"
+      "dest": "/images/$1"
     },
     {
       "src": "/api/user(.*)",
-      "dest": "server.js"
+      "dest": "/api/user$1"
     },
     {
       "src": "/api/cart(.*)",
-      "dest": "server.js"
+      "dest": "/api/cart$1"
     },
     {
       "src": "/api/order(.*)",
-      "dest": "server.js"
+      "dest": "/api/order$1"
     },
     {
       "src": "/(.*)",
-      "dest": "server.js"
+      "dest": "/server.js"
     }
-  ]
+  ],
+  "env": {
+    "MONGODB_URI": "mongodb+srv://vishalbhat21:fZDqf9abUtmzXu7d@cluster0.ijnh9pv.mongodb.net/food-del"
+  }
 }
