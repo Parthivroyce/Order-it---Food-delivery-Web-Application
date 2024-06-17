@@ -33,6 +33,6 @@
     }
   ],
   "env": {
-    "MONGODB_URL": "mongodb+srv://vishalbhat21:fZDqf9abUtmzXu7d@cluster0.ijnh9pv.mongodb.net/food-del"
+    "MONGODB_URI": "mongodb+srv://vishalbhat21:fZDqf9abUtmzXu7d@cluster0.ijnh9pv.mongodb.net/food-del"
   }
 }
