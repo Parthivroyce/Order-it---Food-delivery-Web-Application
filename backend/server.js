@@ -33,4 +33,4 @@ app.listen(port, () => {
   console.log(`Server started on http://localhost:${port}`);
 });
 
-//mongodb+srv://vishalbhat21:<password>@cluster0.ijnh9pv.mongodb.net/?
+// mongodb+srv://vishalbhat21:<password>@cluster0.ijnh9pv.mongodb.net/?
