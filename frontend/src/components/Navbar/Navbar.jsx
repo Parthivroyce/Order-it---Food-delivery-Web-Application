@@ -7,19 +7,24 @@ import { StoreContext } from "../../context/StoreContext";
 const Navbar = ({ setShowLogin }) => {
   const [menu, setMenu] = useState("home");
   const { getTotalCartAmount, token, setToken } = useContext(StoreContext);
-
   const navigate = useNavigate();
+
   const logout = () => {
     localStorage.removeItem("token");
     setToken("");
     navigate("/");
   };
 
+  const handleSearch = (query) => {
+    console.log("Search query:", query); // You can extend this to filter food
+  };
+
   return (
     <div className="navbar">
       <Link to="/">
-        <img src={assets.logo} alt="" className="logo" />
+        <img src={assets.logo} alt="OrderIt Logo" className="logo" />
       </Link>
+
       <ul className="navbar-menu">
         <Link
           to="/"
@@ -50,27 +55,37 @@ const Navbar = ({ setShowLogin }) => {
           contact us
         </a>
       </ul>
+
       <div className="navbar-right">
-        <img src={assets.search_icon} alt="" />
+        <div className="navbar-search-box">
+          <input
+            type="text"
+            placeholder="Search food..."
+            onChange={(e) => handleSearch(e.target.value)}
+          />
+          <img src={assets.search_icon} alt="Search" />
+        </div>
+
         <div className="navbar-search-icon">
           <Link to="/cart">
-            <img src={assets.basket_icon} alt="" />
+            <img src={assets.basket_icon} alt="Cart" />
           </Link>
           <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
         </div>
+
         {!token ? (
           <button onClick={() => setShowLogin(true)}>sign in</button>
         ) : (
           <div className="navbar-profile">
-            <img src={assets.profile_icon} alt="" />
+            <img src={assets.profile_icon} alt="Profile" />
             <ul className="nav-profile-dropdown">
               <li onClick={() => navigate("/myorders")}>
-                <img src={assets.bag_icon} alt="" />
+                <img src={assets.bag_icon} alt="Orders" />
                 <p>Orders</p>
               </li>
               <hr />
               <li onClick={logout}>
-                <img src={assets.logout_icon} alt="" />
+                <img src={assets.logout_icon} alt="Logout" />
                 <p>Logout</p>
               </li>
             </ul>
