@@ -7,6 +7,8 @@ import { StoreContext } from "../../context/StoreContext";
 const Navbar = ({ setShowLogin }) => {
   const [menu, setMenu] = useState("home");
   const { getTotalCartAmount, token, setToken } = useContext(StoreContext);
+  const [searchQuery, setSearchQuery] = useState("");
+
   const navigate = useNavigate();
 
   const logout = () => {
@@ -15,8 +17,11 @@ const Navbar = ({ setShowLogin }) => {
     navigate("/");
   };
 
-  const handleSearch = (query) => {
-    console.log("Search query:", query); // You can extend this to filter food
+  const handleSearch = () => {
+    if (searchQuery.trim() !== "") {
+      // You can add real search logic here
+      alert(`Searching for "${searchQuery}"... (functionality to be added)`);
+    }
   };
 
   return (
@@ -26,53 +31,37 @@ const Navbar = ({ setShowLogin }) => {
       </Link>
 
       <ul className="navbar-menu">
-        <Link
-          to="/"
-          onClick={() => setMenu("home")}
-          className={menu === "home" ? "active" : ""}
-        >
-          home
-        </Link>
-        <a
-          href="#explore-menu"
-          onClick={() => setMenu("menu")}
-          className={menu === "menu" ? "active" : ""}
-        >
-          menu
-        </a>
-        <a
-          href="#app-download"
-          onClick={() => setMenu("mobile-app")}
-          className={menu === "mobile-app" ? "active" : ""}
-        >
-          mobile-app
-        </a>
-        <a
-          href="#footer"
-          onClick={() => setMenu("contact-us")}
-          className={menu === "contact-us" ? "active" : ""}
-        >
-          contact us
-        </a>
+        <Link to="/" onClick={() => setMenu("home")} className={menu === "home" ? "active" : ""}>home</Link>
+        <a href="#explore-menu" onClick={() => setMenu("menu")} className={menu === "menu" ? "active" : ""}>menu</a>
+        <a href="#app-download" onClick={() => setMenu("mobile-app")} className={menu === "mobile-app" ? "active" : ""}>mobile-app</a>
+        <a href="#footer" onClick={() => setMenu("contact-us")} className={menu === "contact-us" ? "active" : ""}>contact us</a>
       </ul>
 
       <div className="navbar-right">
+        {/* 🔍 Search box */}
         <div className="navbar-search-box">
           <input
             type="text"
             placeholder="Search food..."
-            onChange={(e) => handleSearch(e.target.value)}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
           />
-          <img src={assets.search_icon} alt="Search" />
+          <img
+            src={assets.search_icon}
+            alt="Search"
+            onClick={handleSearch}
+          />
         </div>
 
+        {/* 🛒 Cart icon */}
         <div className="navbar-search-icon">
           <Link to="/cart">
             <img src={assets.basket_icon} alt="Cart" />
           </Link>
-          <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
+          {getTotalCartAmount() !== 0 && <div className="dot"></div>}
         </div>
 
+        {/* 👤 Auth buttons */}
         {!token ? (
           <button onClick={() => setShowLogin(true)}>sign in</button>
         ) : (
